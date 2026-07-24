@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: pulse-circle-api
+    env: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: pulse-circle-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ENVIRONMENT
+        value: production
+      - key: DEBUG
+        value: "false"
+      - key: FIREBASE_PROJECT_ID
+        value: verifyhire-96ca5
+
+databases:
+  - name: pulse-circle-db
+    databaseName: pulse_circle
+    plan: free
