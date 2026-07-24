@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Boolean, Enum
+from sqlalchemy import Column, String, Boolean, Enum, Text
 from app.models.base import BaseModel
 import enum
 
@@ -6,6 +6,7 @@ import enum
 class UserRole(str, enum.Enum):
     ADMIN = "admin"
     USER = "user"
+    RECRUITER = "recruiter"
 
 
 class User(BaseModel):
@@ -16,6 +17,10 @@ class User(BaseModel):
     hashed_password = Column(String(255), nullable=False)
     role = Column(Enum(UserRole), default=UserRole.USER, nullable=False)
     is_active = Column(Boolean, default=True, nullable=False)
+    
+    # Recruiter-specific fields
+    company_name = Column(String(200), nullable=True)
+    cac_number = Column(String(50), nullable=True, unique=True)
     
     def __repr__(self):
         return f"<User {self.email}>"

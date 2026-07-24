@@ -4,10 +4,10 @@ from typing import Optional, List
 from uuid import UUID
 
 from app.core.database import get_db
-from app.core.dependencies import get_current_user, get_current_admin
+from app.core.dependencies import get_current_user, get_current_admin, get_current_recruiter
 from app.models.job import Job, JobType
 from app.models.company import Company
-from app.models.user import User
+from app.models.user import User, UserRole
 from app.schemas.job import JobCreate, JobUpdate, JobResponse
 
 router = APIRouter(prefix="/jobs", tags=["Jobs"])
@@ -170,6 +170,160 @@ def delete_job(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Job not found"
         )
+    
+    db.delete(job)
+    db.commit()
+    
+    return {"message": "Job deleted successfully"}
+
+
+# ── RECRUITER ENDPOINTS ──────────────────────────────────────────────
+
+@router.get("/recruiter/my", response_model=List[JobResponse])
+def get_my_jobs(
+    current_user: User = Depends(get_current_recruiter),
+    db: Session = Depends(get_db)
+):
+    """
+    Get all jobs for the recruiter's company. (Recruiter/Admin only)
+    """
+    if not current_user.company_name:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="No company associated with your account"
+        )
+    
+    # Find company by name
+    company = db.query(Company).filter(
+        Company.name == current_user.company_name
+    ).first()
+    
+    if not company:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Company not found"
+        )
+    
+    jobs = db.query(Job).options(joinedload(Job.company)).filter(
+        Job.company_identifier == company.identifier
+    ).order_by(Job.created_date.desc()).all()
+    
+    return jobs
+
+
+@router.post("/recruiter", response_model=JobResponse)
+def create_recruiter_job(
+    job_data: JobCreate,
+    current_user: User = Depends(get_current_recruiter),
+    db: Session = Depends(get_db)
+):
+    """
+    Create a job listing for the recruiter's company. (Recruiter/Admin only)
+    """
+    if not current_user.company_name:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="No company associated with your account"
+        )
+    
+    # Verify the company belongs to this recruiter
+    company = db.query(Company).filter(
+        Company.identifier == job_data.company_identifier
+    ).first()
+    
+    if not company or company.name != current_user.company_name:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="You can only post jobs for your own company"
+        )
+    
+    new_job = Job(
+        title=job_data.title,
+        company_identifier=job_data.company_identifier,
+        location=job_data.location,
+        job_type=job_data.job_type,
+        description=job_data.description,
+        created_by_identifier=current_user.identifier
+    )
+    
+    db.add(new_job)
+    db.commit()
+    db.refresh(new_job)
+    
+    job = db.query(Job).options(joinedload(Job.company)).filter(
+        Job.identifier == new_job.identifier
+    ).first()
+    
+    return job
+
+
+@router.put("/recruiter/{job_id}", response_model=JobResponse)
+def update_recruiter_job(
+    job_id: UUID,
+    job_data: JobUpdate,
+    current_user: User = Depends(get_current_recruiter),
+    db: Session = Depends(get_db)
+):
+    """
+    Update a job listing owned by the recruiter's company. (Recruiter/Admin only)
+    """
+    job = db.query(Job).options(joinedload(Job.company)).filter(
+        Job.identifier == job_id
+    ).first()
+    
+    if not job:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Job not found"
+        )
+    
+    # Verify ownership
+    if current_user.role != UserRole.ADMIN:
+        if not current_user.company_name or job.company.name != current_user.company_name:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="You can only edit your own company's jobs"
+            )
+    
+    for field, value in job_data.model_dump(exclude_unset=True).items():
+        setattr(job, field, value)
+    
+    db.commit()
+    db.refresh(job)
+    
+    job = db.query(Job).options(joinedload(Job.company)).filter(
+        Job.identifier == job_id
+    ).first()
+    
+    return job
+
+
+@router.delete("/recruiter/{job_id}")
+def delete_recruiter_job(
+    job_id: UUID,
+    current_user: User = Depends(get_current_recruiter),
+    db: Session = Depends(get_db)
+):
+    """
+    Delete a job listing owned by the recruiter's company. (Recruiter/Admin only)
+    """
+    job = db.query(Job).options(joinedload(Job.company)).filter(
+        Job.identifier == job_id
+    ).first()
+    
+    if not job:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Job not found"
+        )
+    
+    # Verify ownership
+    if current_user.role != UserRole.ADMIN:
+        if not current_user.company_name or job.company.name != current_user.company_name:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="You can only delete your own company's jobs"
+            )
     
     db.delete(job)
     db.commit()
