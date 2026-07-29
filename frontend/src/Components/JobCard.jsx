@@ -40,8 +40,11 @@ function JobCard({ job, onViewCompany, onReport }) {
         </span>
       </div>
 
+<<<<<<< HEAD
       <p className="mt-3 text-sm leading-relaxed text-gray-600">{job.description}</p>
 
+=======
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
       <div className="mt-4 flex items-center gap-2">
         <button
           type="button"

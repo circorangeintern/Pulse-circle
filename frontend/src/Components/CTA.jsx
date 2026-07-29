@@ -17,7 +17,11 @@ export default function CTA() {
         </h2>
 
         {/* Subtext */}
+<<<<<<< HEAD
         <p className="text-gray-400 text-base">
+=======
+        <p className="text-gray-300 text-base">
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
           Browse verified employers, report suspicious postings and find work
           that's legit
         </p>

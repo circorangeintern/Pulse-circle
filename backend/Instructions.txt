@@ -1,0 +1,2 @@
+# To visit swagger docs
+http://localhost:8000/api/docs

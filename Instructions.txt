@@ -1,0 +1,15 @@
+Name: Alice Admin	
+Role: Admin	
+Email: admin@verifyhire.com	
+Password: Admin@123
+
+Name: Bob Seeker	
+Role: User	
+Email: user@verifyhire.com	
+Password: User@123
+
+
+Name: Carol Recruiter	
+Role: Recruiter	
+Email: recruiter@verifyhire.com	
+Password: Recruit@123

@@ -24,15 +24,24 @@ function Spinner() {
   );
 }
 
+<<<<<<< HEAD
 function PrimaryButton({ children, loading, disabled, type = "submit", ...props }) {
+=======
+function PrimaryButton({ children, loading, disabled, type = "submit", className = "", ...props }) {
+  const baseClasses = "w-full flex items-center justify-center gap-2 rounded-xl bg-orange-500 py-3 text-sm font-semibold text-white transition-all hover:bg-orange-600 active:scale-[0.99] disabled:opacity-60 disabled:cursor-not-allowed disabled:active:scale-100 focus-ring";
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
   return (
     <button
       type={type}
       disabled={disabled || loading}
+<<<<<<< HEAD
       className="w-full flex items-center justify-center gap-2 rounded-lg bg-gray-900 py-2.5 text-sm font-semibold text-white
         transition-all hover:bg-gray-800 active:scale-[0.99]
         disabled:opacity-60 disabled:cursor-not-allowed disabled:active:scale-100
         focus-ring"
+=======
+      className={`${baseClasses} ${className}`.trim()}
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
       {...props}
     >
       {loading && <Spinner />}

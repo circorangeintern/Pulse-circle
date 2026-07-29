@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import { StrictMode } from 'react';
 // import { createRoot } from 'react-dom/client';
 // import './index.css';
@@ -14,6 +15,8 @@
 //   </StrictMode>,
 // );
 
+=======
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';

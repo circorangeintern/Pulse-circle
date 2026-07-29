@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // // import { FaMapMarkerAlt, FaFacebook } from 'react-icons/fa';
 // import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import Navbar from './Components/Navbar';
@@ -26,6 +27,8 @@
 
 // export default App;
 
+=======
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
 import AppRoutes from './routes/AppRoutes.jsx';
 
 function App() {

@@ -5,4 +5,30 @@ import tailwindcss from '@tailwindcss/vite';
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+<<<<<<< HEAD
+=======
+  server: {
+    port: 5173,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:8000',
+        changeOrigin: true,
+      },
+    },
+  },
+  build: {
+    // Generate source maps only in dev, not production
+    sourcemap: false,
+    // Chunk splitting for better caching
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/react-dom') || id.includes('node_modules/react/')) return 'vendor';
+          if (id.includes('node_modules/react-icons')) return 'icons';
+          if (id.includes('node_modules/firebase')) return 'firebase';
+        },
+      },
+    },
+  },
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
 });

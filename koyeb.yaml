@@ -1,0 +1,32 @@
+name: verifyhire
+service: backend
+region: was
+instance_type: free
+
+backend:
+  name: pulse-circle-api
+  build:
+    command: pip install -r requirements.txt
+    working_directory: backend
+  run:
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    working_directory: backend
+    ports:
+      - port: 8000
+        protocol: http
+  env:
+    - key: ENVIRONMENT
+      value: production
+    - key: DEBUG
+      value: "false"
+    - key: FIREBASE_PROJECT_ID
+      value: verifyhire-96ca5
+    - key: SECRET_KEY
+      secret: SECRET_KEY
+    - key: DATABASE_URL
+      secret: DATABASE_URL
+
+database:
+  - name: pulse-circle-db
+    type: postgresql
+    plan: free

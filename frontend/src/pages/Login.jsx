@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { FaSignInAlt, FaEnvelope } from "react-icons/fa";
+<<<<<<< HEAD
 import AuthLayout from "../components/AuthLayout.jsx";
 import InputField from "../components/InputField.jsx";
 import PasswordInput from "../components/PasswordInput.jsx";
@@ -10,6 +11,17 @@ import PrimaryButton from "../components/PrimaryButton.jsx";
 import Divider from "../components/Divider.jsx";
 import { loginSchema } from "../validation/authSchemas.js";
 import { signInWithEmail, signInWithGoogle, getAuthErrorMessage } from "../services/authService.js";
+=======
+import AuthLayout from "../Components/AuthLayout.jsx";
+import InputField from "../Components/InputField.jsx";
+import PasswordInput from "../Components/PasswordInput.jsx";
+import GoogleButton from "../Components/GoogleButton.jsx";
+import PrimaryButton from "../Components/PrimaryButton.jsx";
+import Divider from "../Components/Divider.jsx";
+import { loginSchema } from "../validation/authSchemas.js";
+import { signInWithEmail, signInWithGoogle, getAuthErrorMessage } from "../services/authService.js";
+import { usersApi } from "../services/api.js";
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
 import { ROUTES } from "../utils/constants.js";
 
 function Login() {
@@ -18,13 +30,33 @@ function Login() {
   const [formError, setFormError] = useState("");
   const [googleLoading, setGoogleLoading] = useState(false);
 
+<<<<<<< HEAD
   const redirectTo = location.state?.from?.pathname || ROUTES.DASHBOARD;
+=======
+  const redirectTo = location.state?.from?.pathname;
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
 
   async function handleSubmit(values, { setSubmitting }) {
     setFormError("");
     try {
       await signInWithEmail(values);
+<<<<<<< HEAD
       navigate(redirectTo, { replace: true });
+=======
+      // Redirect based on role
+      try {
+        const me = await usersApi.getMe();
+        if (me.data.role === "admin") {
+          navigate(ROUTES.ADMIN, { replace: true });
+          return;
+        }
+        if (me.data.role === "recruiter") {
+          navigate(ROUTES.RECRUITER_DASHBOARD, { replace: true });
+          return;
+        }
+      } catch {}
+      navigate(redirectTo || ROUTES.JOBS, { replace: true });
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
     } catch (error) {
       setFormError(getAuthErrorMessage(error));
     } finally {
@@ -37,7 +69,22 @@ function Login() {
     setGoogleLoading(true);
     try {
       await signInWithGoogle();
+<<<<<<< HEAD
       navigate(redirectTo, { replace: true });
+=======
+      try {
+        const me = await usersApi.getMe();
+        if (me.data.role === "admin") {
+          navigate(ROUTES.ADMIN, { replace: true });
+          return;
+        }
+        if (me.data.role === "recruiter") {
+          navigate(ROUTES.RECRUITER_DASHBOARD, { replace: true });
+          return;
+        }
+      } catch {}
+      navigate(redirectTo || ROUTES.JOBS, { replace: true });
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
     } catch (error) {
       setFormError(getAuthErrorMessage(error));
     } finally {

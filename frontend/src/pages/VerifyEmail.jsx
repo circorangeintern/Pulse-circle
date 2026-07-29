@@ -2,9 +2,15 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { Formik, Form } from "formik";
 import { FaEnvelopeOpenText } from "react-icons/fa";
+<<<<<<< HEAD
 import AuthLayout from "../components/AuthLayout.jsx";
 import OtpInput from "../components/OtpInput.jsx";
 import PrimaryButton from "../components/PrimaryButton.jsx";
+=======
+import AuthLayout from "../Components/AuthLayout.jsx";
+import OtpInput from "../Components/OtpInput.jsx";
+import PrimaryButton from "../Components/PrimaryButton.jsx";
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
 import { verifyEmailSchema } from "../validation/authSchemas.js";
 import { verifyEmailCode, resendVerificationCode } from "../services/authService.js";
 import { useAuth } from "../hooks/useAuth.js";
@@ -19,6 +25,10 @@ function VerifyEmail() {
   // missing (e.g. the user landed here directly), fall back to the signed-in
   // user's email, or send them back to sign up.
   const email = location.state?.email || user?.email || "";
+<<<<<<< HEAD
+=======
+  const [devCode, setDevCode] = useState(location.state?.devCode || "");
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
 
   const [formError, setFormError] = useState("");
   const [resendState, setResendState] = useState({
@@ -30,8 +40,19 @@ function VerifyEmail() {
   useEffect(() => {
     if (!email) {
       navigate(ROUTES.SIGNUP, { replace: true });
+<<<<<<< HEAD
     }
   }, [email, navigate]);
+=======
+      return;
+    }
+    // Auto-send a code if we don't have one yet (e.g. redirected from login)
+    if (!devCode) {
+      handleResend();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email]);
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
 
   // Countdown ticker for the resend cooldown.
   useEffect(() => {
@@ -47,7 +68,11 @@ function VerifyEmail() {
     try {
       await verifyEmailCode(email, values.code);
       markEmailVerified();
+<<<<<<< HEAD
       navigate(ROUTES.DASHBOARD, { replace: true });
+=======
+      navigate(ROUTES.JOBS, { replace: true });
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
     } catch (error) {
       const message = error.message || "That code didn't work. Please try again.";
       setFieldError("code", message);
@@ -60,12 +85,21 @@ function VerifyEmail() {
   async function handleResend() {
     setResendState((s) => ({ ...s, loading: true, message: "" }));
     try {
+<<<<<<< HEAD
       await resendVerificationCode(email);
+=======
+      const resp = await resendVerificationCode(email);
+      const newCode = resp?.data?.dev_code || "";
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
       setResendState({
         loading: false,
         message: "A new code was sent to your email.",
         cooldown: RESEND_COOLDOWN_SECONDS,
       });
+<<<<<<< HEAD
+=======
+      if (newCode) setDevCode(newCode);
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
     } catch (error) {
       setResendState({
         loading: false,
@@ -96,6 +130,18 @@ function VerifyEmail() {
         </>
       }
     >
+<<<<<<< HEAD
+=======
+      {devCode && (
+        <div className="mb-4 rounded-xl border border-orange-200 bg-orange-50 px-4 py-3 text-sm text-orange-800">
+          <p className="font-semibold mb-0.5">🔧 Development mode</p>
+          <p>
+            Your verification code is: <span className="font-bold text-orange-600 text-base tracking-wider">{devCode}</span>
+          </p>
+        </div>
+      )}
+
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
       {formError && (
         <div
           role="alert"

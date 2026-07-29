@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 // import React from 'react'
+=======
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
 import Hero from '../Components/Hero';
 import HowItWorks from '../Components/HowItWorks';
 import Services from '../Components/Services';
@@ -20,6 +23,7 @@ function LandingPage() {
 }
 
 export default LandingPage;
+<<<<<<< HEAD
 
 // const LandingPage = () => {
 //   return (
@@ -30,3 +34,5 @@ export default LandingPage;
 // };
 
 // export default LandingPage;
+=======
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840

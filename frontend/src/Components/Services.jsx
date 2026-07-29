@@ -37,7 +37,11 @@ export default function Services() {
           <h2 className="text-[#1a1a2e] font-bold text-3xl sm:text-4xl mb-3">
             Why VerifyHire?
           </h2>
+<<<<<<< HEAD
           <p className="text-gray-400 text-base">
+=======
+          <p className="text-gray-500 text-base">
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
             Everything you need to job hunt safely.
           </p>
         </div>
@@ -55,7 +59,11 @@ export default function Services() {
                 <h3 className="text-[#1a1a2e] font-bold text-base mb-1">
                   {service.title}
                 </h3>
+<<<<<<< HEAD
                 <p className="text-gray-500 text-sm leading-relaxed">
+=======
+                <p className="text-gray-600 text-sm leading-relaxed">
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
                   {service.desc}
                 </p>
               </div>

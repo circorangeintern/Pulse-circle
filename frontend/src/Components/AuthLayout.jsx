@@ -2,10 +2,17 @@
  * Shared shell for every auth screen: centered icon badge, heading,
  * subtitle, and a bordered card that holds the form content.
  */
+<<<<<<< HEAD
 function AuthLayout({ icon, title, subtitle, children, footer }) {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-10 sm:py-16">
       <div className="w-full max-w-md animate-fade-in">
+=======
+function AuthLayout({ icon, title, subtitle, children, footer, wide }) {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-10 sm:py-16">
+      <div className={`w-full ${wide ? 'max-w-xl' : 'max-w-md'} animate-fade-in`}>
+>>>>>>> 0948f907775552d7842c98a19f372989e9207840
         <div className="flex flex-col items-center text-center mb-6">
           <div className="w-14 h-14 rounded-2xl bg-gray-900 flex items-center justify-center text-white text-2xl mb-5 shadow-sm">
             {icon}
