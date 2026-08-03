@@ -7,13 +7,14 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full">
         <div className="max-w-2xl">
           {/* Badge */}
-<<<<<<< HEAD
-          <div className="inline-flex items-center gap-2 bg-slate-600/50 text-gray-200 px-4 py-2 rounded-full text-sm mb-8">
-            <FaShieldAlt className="text-orange-400 text-xs" />
-=======
-          <div className="inline-flex items-center gap-2 bg-slate-600/50 text-gray-200 px-4 py-2 rounded-full text-sm mb-8" role="status">
-            <FaShieldAlt className="text-orange-400 text-xs" aria-hidden="true" />
->>>>>>> 0948f907775552d7842c98a19f372989e9207840
+          <div
+            className="inline-flex items-center gap-2 bg-slate-600/50 text-gray-200 px-4 py-2 rounded-full text-sm mb-8"
+            role="status"
+          >
+            <FaShieldAlt
+              className="text-orange-400 text-xs"
+              aria-hidden="true"
+            />
             <span>Apply with confidence</span>
           </div>
 
@@ -33,12 +34,6 @@ const Hero = () => {
 
           {/* Buttons */}
           <div className="mt-10 flex flex-col sm:flex-row gap-4">
-<<<<<<< HEAD
-            <button className="flex items-center justify-center gap-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-4 rounded-xl transition duration-300">
-              <FaSearch />
-              Browse Jobs
-            </button>
-=======
             <Link
               to="/jobs"
               className="flex items-center justify-center gap-3 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-4 rounded-xl transition duration-300"
@@ -46,7 +41,6 @@ const Hero = () => {
               <FaSearch />
               Browse Jobs
             </Link>
->>>>>>> 0948f907775552d7842c98a19f372989e9207840
 
             <Link
               to="/signup"

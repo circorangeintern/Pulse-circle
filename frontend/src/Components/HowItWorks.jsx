@@ -30,11 +30,7 @@ export default function HowItWorks() {
           <h2 className="text-[#1a1a2e] font-bold text-3xl sm:text-4xl mb-2">
             How it works
           </h2>
-<<<<<<< HEAD
-          <p className="text-gray-400 text-base">
-=======
           <p className="text-gray-500 text-base">
->>>>>>> 0948f907775552d7842c98a19f372989e9207840
             Three steps to a safer job search.
           </p>
         </div>
@@ -62,11 +58,7 @@ export default function HowItWorks() {
               </h3>
 
               {/* Description */}
-<<<<<<< HEAD
-              <p className="text-gray-400 text-sm leading-relaxed max-w-55">
-=======
               <p className="text-gray-600 text-sm leading-relaxed max-w-55">
->>>>>>> 0948f907775552d7842c98a19f372989e9207840
                 {step.desc}
               </p>
             </div>
